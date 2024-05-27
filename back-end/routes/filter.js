@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { Product } from "../models/products.js";
 import { pagination } from "./products.js";
 const router = Router();
 
@@ -56,6 +55,27 @@ router.get("/checked", async (req, res) => {
     }
   }
 });
+router.get("/subcategory", async (req, res) => {
+  const key = req.query.subCat;
+  if (key === undefined || key === "") {
+    const products = await pagination();
+    res.json({ products, success: true });
+  } else {
+    if (key) {
+      try {
+        const products = await pagination({
+          subCategory: key,
+        });
 
+        res.json({ products, success: true });
+        if (!products) {
+          res.status(500).json(" products not found!");
+        }
+      } catch (error) {
+        res.status(500).send(error.message);
+      }
+    }
+  }
+});
 const filterRoute = router;
 export { filterRoute };

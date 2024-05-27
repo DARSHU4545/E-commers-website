@@ -1,11 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 import AllCategaries from "./AllCategaries";
 import { Context } from "@/store/Store";
 import { Link } from "react-router-dom";
+import axios from "axios";
 const Header2 = () => {
-  const { categories, subCategories } = useContext(Context);
+  const { categories, subCategories, setProducts } = useContext(Context);
+  const [subCategory, setSubCategory] = useState("");
+
+  const getSubCatData = async (subCat) => {
+    setSubCategory(subCat);
+    if (subCategory) {
+      const { data } = await axios.get(
+        `http://localhost:8000/api/product/filter/subcategory?subCat=${subCategory}`
+      );
+      console.log(data.products);
+      setProducts(data.products);
+    }
+  };
+
+  useEffect(() => {
+    getSubCatData();
+  }, [subCategory]);
+
   return (
     <nav className=" mt-8">
       <div className=" flex gap-x-15 w-[100%] items-center">
@@ -33,7 +51,11 @@ const Header2 = () => {
                       {subCategories?.length !== 0 &&
                         subCategories?.map((subCat, ind) => {
                           return subCat.category.name == cat.name ? (
-                            <li key={ind} className=" uppercase text-[13px]">
+                            <li
+                              key={ind}
+                              className=" uppercase text-[13px]"
+                              onClick={() => getSubCatData(subCat._id)}
+                            >
                               {subCat.name}
                             </li>
                           ) : null;

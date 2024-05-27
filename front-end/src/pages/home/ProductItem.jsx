@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Rating from "@mui/material/Rating";
 import { IoCartOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import { SlSizeFullscreen } from "react-icons/sl";
 import { MdFavoriteBorder } from "react-icons/md";
 import ProductDetailModal from "./ProductDetailModal";
+import { Link } from "react-router-dom";
 
 const ProductItem = ({ product }) => {
   const [openModal, setOpenModal] = useState(false);
-  const [item, setImtem] = useState("");
+  const [item, setItem] = useState({});
+
   return (
     <>
       <div className=" w-[270px] h-[400px] border p-3 relative group">
@@ -23,7 +25,7 @@ const ProductItem = ({ product }) => {
             className=" text-[20px] cursor-pointer"
             onClick={() => {
               setOpenModal(true);
-              setImtem(product);
+              setItem(product);
             }}
           >
             <SlSizeFullscreen />
@@ -34,15 +36,17 @@ const ProductItem = ({ product }) => {
         </div>
         <div className=" h-[40%] w-full mt-5">
           <img
-            src={product?.images[0]}
+            src={product?.images ? product?.images[0] : ""}
             alt="item"
             className=" h-[150px] m-auto "
           />
         </div>
         <div className="mt-4 flex flex-col gap-3">
-          <h2 className=" text-[18px] font-semibold text-gray-500 line-clamp-1">
-            {product?.name}
-          </h2>
+          <Link to={`/product/${product?._id}`}>
+            <h2 className=" text-[18px] font-semibold text-gray-500 line-clamp-1">
+              {product?.name}
+            </h2>
+          </Link>
           <p className=" text-green-400 text-[14px] font-semibold">IN STOCK</p>
           <Rating
             name="simple-controlled"

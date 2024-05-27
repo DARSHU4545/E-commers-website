@@ -97,7 +97,9 @@ router.post("/create", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate(
+      "category subCategory"
+    );
     if (!product) {
       res.status(500).json("Category not found !");
     }

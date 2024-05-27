@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { IoMdArrowForward } from "react-icons/io";
 import ProductItem from "./ProductItem";
 import { Context } from "@/store/Store";
+import { Link } from "react-router-dom";
 
 const NewProductsItem = () => {
   const { products } = useContext(Context);
@@ -25,15 +26,17 @@ const NewProductsItem = () => {
                 New Products with updated stocks
               </p>
             </div>
-            <Button
-              variant="outline"
-              className="rounded-2xl border border-red-600"
-            >
-              View All
-              <span className=" ml-3 text-[18px]">
-                <IoMdArrowForward />
-              </span>
-            </Button>
+            <Link to="/shop">
+              <Button
+                variant="outline"
+                className="rounded-2xl border border-red-600"
+              >
+                View All
+                <span className=" ml-3 text-[18px]">
+                  <IoMdArrowForward />
+                </span>
+              </Button>
+            </Link>
           </div>
 
           {/* products */}

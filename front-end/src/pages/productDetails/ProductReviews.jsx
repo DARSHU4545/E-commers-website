@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Rating } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./table.css";
-import RelatedProducts from "./RelatedProducts";
-const ProductReviews = () => {
-  const [activeTabs, setActiveTabs] = useState(0);
 
+const ProductReviews = ({ product }) => {
+  const [activeTabs, setActiveTabs] = useState(0);
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <div className="bg-white w-[100%] m-auto p-10  my-5">
       <div className="">
@@ -47,17 +49,7 @@ const ProductReviews = () => {
           </Button>
         </ul>
 
-        {activeTabs === 0 && (
-          <div>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam
-            asperiores ducimus laborum voluptatem repellat accusantium ea.
-            Debitis ipsum sequi atque iure unde id vel perferendis totam, error
-            incidunt rem assumenda.lorem Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Laboriosam ipsam dolore, sapiente eos aperiam
-            perferendis sed totam numquam quos consectetur, libero cum minus
-            sunt quisquam eveniet quaerat ut, obcaecati labore!
-          </div>
-        )}
+        {activeTabs === 0 && <div>{product?.description}</div>}
 
         {activeTabs === 1 && (
           <div className=" border flex ">

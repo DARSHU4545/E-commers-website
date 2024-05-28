@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-/Admin-Dashboard
+/Admin-Dashboard/node_modules
 /frontend/node_modules
 /backend/node_modules
 /backend/config
